@@ -38,19 +38,27 @@ class LinkedList:
             return current_head.value
 
     def remove_tail(self):
-        if self.head is None and self.tail is None:
-            return None
-        # Checking if linked list has only one node.
-        if self.head == self.tail:
-            value = self.head.value
-            self.head = None
-            self.tail = None
-            return value  # save current value
-        current = self.head
-        # Once check is finished and determines there
-        # is more than one node, move to else
-        while current.next != self.tail:
-            current = current.next
-        value = self.tail.value
-        self.tail = current
-        return value
+        if self.length > 0:
+            if self.length == 1:
+                self.head = None
+                self.tail = None
+            else:
+                current = self.head
+                while current.next != self.tail:
+                    current = current.next
+                current.next = None
+                self.tail = current
+            self.length -= 1
+
+            # Check if it's there
+            # General case:
+            # Start at head and iterate to the next-to-last node
+            # Stop when current_node.next == self.tail
+            # Save the current_tail value
+            # Set self.tail to current_node
+            # Set current_node.next to None
+            #
+            # List of 1 element:
+            # Save the current_tail.value
+            # Set self.tail to None
+            # Set self.head to None
