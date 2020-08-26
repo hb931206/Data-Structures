@@ -63,7 +63,6 @@ class DoublyLinkedList:
 
     def remove_from_head(self):
         pass
-
     """
     Wraps the given value in a ListNode and inserts it 
     as the new tail of the list. Don't forget to handle 
@@ -113,30 +112,22 @@ class DoublyLinkedList:
     """
 
     def delete(self, node):
-       # Check for empty pointers
-        # Get previous node = node.prev
-        previous_node = node.prev
-        # Set prev_node.next to node.next
-        if previous_node is None:
-            # could just call self.remove_from_head()
-            self.head = node.next
+        if not self.head and not self.tail:
+            print("Can't delete item")
+            return
+        elif self.head == self.tail:
+            self.head = None
+            self.tail = None
+        elif node == self.head:
+            self.head = self.head.next
+            node.delete()
+        elif node == self.tail:
+            self.tail = self.tail.prev
+            node.delete()
         else:
-            previous_node.next = node.next
-        # Next_node = node.next
-        next_node = node.next
-        # Set next_node.previous = previous_node
-        if next_node is None:
-            self.tail = node.prev
-        else:
-            next_node.prev = previous_node
-        # Decrement length
+            node.delete()
+
         self.length -= 1
-        # Set node.prev = None
-        node.prev = None
-        # Set node.next = None
-        node.next = None
-        # Return node.value
-        return node.value
 
     """
     Finds and returns the maximum value of all the nodes 
